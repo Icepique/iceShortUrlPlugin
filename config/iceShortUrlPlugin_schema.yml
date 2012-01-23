@@ -1,0 +1,33 @@
+connection: propel
+noXsd: false
+defaultIdMethod: native
+package: plugins.iceShortUrlPlugin.lib.model
+encoding: utf8
+
+classes:
+  ShortUrl:
+    phpName: iceModelShortUrl
+    columns:
+      id:  ~
+      url:         { type: longvarchar }
+      url_decoded: { type: longvarchar }
+      hash:        { type: varchar, size: 8, index: true, primaryString: true }
+      view_count:  { type: integer, default: 0 }
+      is_public:   { type: boolean, sqlType: "BOOL", required: true, default: true }
+      is_enabled:  { type: boolean, sqlType: "BOOL", required: true, default: true }
+
+    propel_behaviors:
+      timestampable:  ~
+
+  ShortUrlHit:
+    phpName: iceModelShortUrlHit
+    columns:
+      id:  ~
+      short_url_id:  { type: integer, required: true, foreignClass: ShortUrl, foreignReference: id, onDelete: cascade }
+      session_id:    { type: varchar, size: 32, required: true }
+      ip_address:    { type: varchar, size: 15, required: true }
+      referrer:      { type: varchar, size: 255, required: false }
+      is_mobile:     { type: boolean, sqlType: "BOOL", required: true, default: false }
+
+    propel_behaviors:
+      timestampable:  ~

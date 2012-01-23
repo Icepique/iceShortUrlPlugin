@@ -1,0 +1,11 @@
+ice_short_url:
+  url: /:sf_culture/:hash
+  class: IcePropelRoute
+  options: { model: iceModelShortUrl, type: object, method: getObjectForRoute, extra_parameters_as_query_string: false }
+  param: { module: iceShortUrlModule, action: index }
+  requirements: { sf_format: html, hash: "s[\w\d]{1,5}" }
+
+ice_short_url_create:
+  url: /:sf_culture/ice-short-url/create
+  param: { module: iceShortUrlModule, action: create }
+  requirements: { sf_format: ajax, sf_method: POST }
